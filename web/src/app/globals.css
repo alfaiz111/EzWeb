@@ -1,0 +1,40 @@
+html {
+  scroll-behavior: smooth;
+}
+
+/* Animasi masuk */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animasi fade biasa */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Utility class */
+.animate-fadeInUp {
+  animation: fadeInUp 1s ease forwards;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1.5s ease forwards;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
