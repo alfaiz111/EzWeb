@@ -19,13 +19,19 @@ const certificates = [
     title: "BNSP Certificate",
     desc: "Junior Web Developer",
     image: "/images/bnsp.png",
-    link: "#",
+    link: "https://drive.google.com/file/d/1XSSQfh4-2eGns04NWnjCN8DFNFWrZw0j/view?usp=drivesdk",
   },
   {
     title: "BNSP Certificate",
     desc: "Associate Data Scientist",
     image: "/images/bnsp.png",
-    link: "#",
+    link: "https://drive.google.com/file/d/118j9r22AlJB_NuAMGPT1ROnswSgom0Od/view?usp=drivesdk",
+  },
+  {
+    title: "Combbasesd Mikrotik",
+    desc: "Mikrotik",
+    image: "/images/mikrotik.png",
+    link: "https://drive.google.com/file/d/1peZztexYPjbtN9y4P9hT2SpM8ky1Y4-0/view?usp=drivesdk",
   },
 ];
 
