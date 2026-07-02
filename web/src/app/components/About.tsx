@@ -28,7 +28,7 @@ export default function About() {
     alignItems: "center",
     gap: "20px",
     background: getBg(key),
-    paddingLeft: "20px",
+    padding: "12px 16px",
     borderRadius: "15px",
     color: "white",
     boxShadow: getShadow(key),
@@ -47,20 +47,23 @@ export default function About() {
         justifyContent: "center",
         background: "#ffffff",
         fontFamily: "system-ui, sans-serif",
+        padding: "20px",
       }}
     >
       <div
         style={{
-          width: "85%",
+          width: "100%",
           maxWidth: "1100px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
           gap: "60px",
+          flexWrap: "wrap", // 🔥 penting untuk mobile
         }}
       >
-        {/* LEFT IMAGE */}
+        {/* LEFT IMAGE (HIDDEN MOBILE) */}
         <div
+          className="about-image"
           style={{
             position: "relative",
             width: "450px",
@@ -92,13 +95,18 @@ export default function About() {
         </div>
 
         {/* RIGHT CONTENT */}
-        <div style={{ maxWidth: "500px" }}>
+        <div
+          style={{
+            flex: "1 1 400px",
+            maxWidth: "500px",
+          }}
+          className="about-content"
+        >
           <p
             style={{
               color: "#004B39",
               fontWeight: "600",
-              marginBottom: "-30px",
-              marginTop: "70px",
+              marginBottom: "10px",
               fontSize: "14px",
             }}
           >
@@ -107,10 +115,9 @@ export default function About() {
 
           <h1
             style={{
-              fontSize: "36px",
+              fontSize: "clamp(26px, 5vw, 36px)", // 🔥 responsive font
               fontWeight: "700",
               color: "#004B39",
-              marginBottom: "-10px",
             }}
           >
             M. Arif Alfaiz
@@ -122,7 +129,7 @@ export default function About() {
               marginBottom: "20px",
               color: "#555",
               lineHeight: "1.6",
-              fontSize: "14px",
+              fontSize: "clamp(13px, 2.5vw, 14px)",
             }}
           >
             Saya adalah seorang UI Designer dan Frontend Developer yang memiliki
@@ -135,14 +142,11 @@ export default function About() {
             style={{
               display: "flex",
               flexDirection: "column",
-              gap: "10px",
+              gap: "12px",
             }}
           >
             {/* WhatsApp */}
-            <a
-              href="https://wa.me/6285176707868"
-              style={{ textDecoration: "none" }}
-            >
+            <a href="https://wa.me/6285176707868">
               <div
                 style={card("wa")}
                 onMouseEnter={() => setHover("wa")}
@@ -163,10 +167,7 @@ export default function About() {
             </a>
 
             {/* Email */}
-            <a
-              href="mailto:muhammadarif120419@gmail.com"
-              style={{ textDecoration: "none" }}
-            >
+            <a href="mailto:muhammadarif120419@gmail.com">
               <div
                 style={card("email")}
                 onMouseEnter={() => setHover("email")}
@@ -185,10 +186,7 @@ export default function About() {
             </a>
 
             {/* Location */}
-            <a
-              href="https://www.google.com/maps/search/?api=1&query=Jakarta+Pusat"
-              style={{ textDecoration: "none" }}
-            >
+            <a href="https://www.google.com/maps/search/?api=1&query=Jakarta+Pusat">
               <div
                 style={card("loc")}
                 onMouseEnter={() => setHover("loc")}
@@ -210,6 +208,20 @@ export default function About() {
           </div>
         </div>
       </div>
+
+      {/* 🔥 RESPONSIVE STYLE */}
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .about-image {
+            display: none; /* 🔥 hilangkan gambar di mobile */
+          }
+
+          .about-content {
+            text-align: center;
+            margin: auto;
+          }
+        }
+      `}</style>
     </section>
   );
 }

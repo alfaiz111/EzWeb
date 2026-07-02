@@ -37,39 +37,48 @@ const techStack = [
   { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
   { name: "PHP", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" },
   { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-  { name: "Canva", icon: "https://cdn.worldvectorlogo.com/logos/canva-1.svg" },
+  { name: "Canva", icon: "/images/canva.png" },
 ];
 
 function SkillCard({ title }: { title: string }) {
   return (
-    <div
-      style={{
-        background: "#ffffff",
-        color: "#004B39",
-        padding: "0px 20px", // 🔥 lebih kecil
-        borderRadius: "10px",
-        fontSize: "13px",
-        textAlign: "left",
-        height: "36px", // 🔥 tinggi fix tipis
-        display: "flex",
-        alignItems: "center",
-        boxShadow: "0 1px 4px rgba(0,0,0,0.08)", // 🔥 lebih soft
-        transition: "all 0.2s ease",
-        cursor: "pointer",
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = "translateY(-3px)";
-        e.currentTarget.style.boxShadow = "0 6px 12px rgba(0,0,0,0.12)";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = "translateY(0)";
-        e.currentTarget.style.boxShadow = "0 1px 4px rgba(0,0,0,0.08)";
-      }}
-    >
+    <div className="skill-card">
       {title}
+
+      <style jsx>{`
+        .skill-card {
+          background: #ffffff;
+          color: #004b39;
+          padding: 0px 20px;
+          border-radius: 10px;
+          font-size: 13px;
+          text-align: left;
+          height: 36px;
+          display: flex;
+          align-items: center;
+          box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+          transition: all 0.2s ease;
+          cursor: pointer;
+        }
+
+        .skill-card:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        /* 🔥 MOBILE ONLY */
+        @media (max-width: 768px) {
+          .skill-card {
+            padding: 0px 12px;   /* lebih kecil */
+            font-size: 12px;     /* teks lebih kecil */
+            height: 32px;        /* lebih compact */
+          }
+        }
+      `}</style>
     </div>
   );
 }
+
 export default function Skills() {
   return (
     <section
@@ -85,11 +94,9 @@ export default function Skills() {
       <div style={{ width: "85%", margin: "auto" }}>
 
         {/* HEADER */}
-        <div style={{  marginBottom: "-10px" }}>
-          <h1 style={{ fontSize: "34px", fontWeight: "700" }}>
-            Skills
-          </h1>
-          <p style={{marginTop: "-20px", opacity: 0.7, fontSize: "14px" }}>
+        <div style={{ marginBottom: "-10px" }}>
+          <h1 className="title">Skills</h1>
+          <p className="desc">
             Kumpulan keterampilan yang saya kembangkan melalui pengalaman dan proses belajar.
           </p>
         </div>
@@ -103,7 +110,6 @@ export default function Skills() {
             marginBottom: "20px",
           }}
         >
-
           {/* HARD */}
           <div>
             <h2 style={{ marginBottom: "10px" }}>Hard Skills</h2>
@@ -123,12 +129,11 @@ export default function Skills() {
               ))}
             </div>
           </div>
-
         </div>
 
         {/* TECH STACK */}
         <div>
-          <h2 style={{ marginTop: "0px", marginBottom: "10px" }}>Tech Stack</h2>
+          <h2 style={{ marginBottom: "10px" }}>Tech Stack</h2>
 
           <div
             style={{
@@ -151,22 +156,12 @@ export default function Skills() {
                   transition: "all 0.25s ease",
                   cursor: "pointer",
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translateY(-6px)";
-                  e.currentTarget.style.boxShadow =
-                    "0 12px 20px rgba(0,0,0,0.15)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow =
-                    "0 2px 6px rgba(0,0,0,0.1)";
-                }}
               >
                 <Image
                   src={item.icon}
                   alt={item.name}
-                  width={32}
-                  height={32}
+                  width={28} // 🔥 sedikit kecil di mobile aman
+                  height={28}
                 />
               </div>
             ))}
@@ -174,6 +169,31 @@ export default function Skills() {
         </div>
 
       </div>
+
+      {/* 🔥 TEXT RESPONSIVE ONLY */}
+      <style jsx>{`
+        .title {
+          font-size: 34px;
+          font-weight: 700;
+        }
+
+        .desc {
+          margin-top: -20px;
+          opacity: 0.7;
+          font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+          .title {
+            font-size: 26px;
+          }
+
+          .desc {
+            font-size: 12px;
+            margin-top: -10px;
+          }
+        }
+      `}</style>
     </section>
   );
 }

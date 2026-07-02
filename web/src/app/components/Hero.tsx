@@ -7,7 +7,9 @@ import { useEffect, useState } from "react";
 export default function Hero() {
   const text = "Welcome to My Portfolio";
   const [displayText, setDisplayText] = useState("");
+  const [isMobile, setIsMobile] = useState(false);
 
+  // typing effect
   useEffect(() => {
     let i = 0;
     const interval = setInterval(() => {
@@ -18,7 +20,30 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, []);
 
-  // ✅ SOCIAL LINKS
+  // detect mobile
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // 🔥 SCROLL FUNCTION
+  const handleScroll = (id: string) => {
+    const section = document.getElementById(id);
+
+    if (section) {
+      section.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
   const socials = [
     {
       icon: FaInstagram,
@@ -49,6 +74,7 @@ export default function Hero() {
         justifyContent: "center",
         overflow: "hidden",
         fontFamily: "system-ui, sans-serif",
+        padding: isMobile ? "40px 20px" : "20px",
       }}
     >
       {/* BACKGROUND */}
@@ -76,25 +102,35 @@ export default function Hero() {
           position: "relative",
           zIndex: 2,
           display: "flex",
-          width: "85%",
+          width: "100%",
           maxWidth: "1100px",
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent: isMobile ? "center" : "space-between",
           color: "white",
-          gap: "10px",
+          gap: "20px",
+          flexWrap: "wrap",
+          textAlign: isMobile ? "center" : "left",
         }}
       >
         {/* LEFT */}
-        <div style={{ maxWidth: "580px", marginLeft: "70px" }}>
+        <div
+          style={{
+            flex: "1 1 500px",
+            maxWidth: "580px",
+            margin: isMobile ? "0 auto" : "0",
+          }}
+        >
           <h1
             style={{
-              fontSize: "48px",
+              fontSize: "clamp(28px, 5vw, 48px)",
               fontWeight: "700",
               letterSpacing: "-1px",
             }}
           >
             {displayText}
-            <span style={{ borderRight: "2px solid white", marginLeft: "5px" }} />
+            <span
+              style={{ borderRight: "2px solid white", marginLeft: "5px" }}
+            />
           </h1>
 
           <p
@@ -102,15 +138,16 @@ export default function Hero() {
               marginTop: "20px",
               opacity: 0.85,
               lineHeight: "1.7",
-              fontSize: "16px",
+              fontSize: "clamp(14px, 2.5vw, 16px)",
             }}
           >
             Saya adalah web developer yang fokus pada pembuatan website modern
             menggunakan Next.js dan teknologi terbaru.
           </p>
 
-          {/* BUTTON */}
+          {/* 🔥 BUTTON (SUDAH ADA SCROLL) */}
           <button
+            onClick={() => handleScroll("portofolio")}
             style={{
               marginTop: "30px",
               padding: "12px 28px",
@@ -123,12 +160,6 @@ export default function Hero() {
               fontSize: "14px",
               transition: "0.3s",
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "translateY(-2px)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "translateY(0)";
-            }}
           >
             Get Started
           </button>
@@ -137,7 +168,7 @@ export default function Hero() {
           <h2
             style={{
               marginTop: "40px",
-              fontSize: "22px",
+              fontSize: "20px",
               fontWeight: "600",
               letterSpacing: "1px",
             }}
@@ -156,7 +187,14 @@ export default function Hero() {
           </p>
 
           {/* SOCIAL ICON */}
-          <div style={{ display: "flex", gap: "15px", marginTop: "15px" }}>
+          <div
+            style={{
+              display: "flex",
+              gap: "15px",
+              marginTop: "15px",
+              justifyContent: isMobile ? "center" : "flex-start",
+            }}
+          >
             {socials.map((item, index) => {
               const Icon = item.icon;
               return (
@@ -170,17 +208,6 @@ export default function Hero() {
                     borderRadius: "12px",
                     background: "rgba(255,255,255,0.1)",
                     backdropFilter: "blur(5px)",
-                    transition: "0.3s",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = "translateY(-4px)";
-                    e.currentTarget.style.background =
-                      "rgba(255,255,255,0.2)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = "translateY(0)";
-                    e.currentTarget.style.background =
-                      "rgba(255,255,255,0.1)";
                   }}
                 >
                   <Icon size={20} color="white" />
@@ -191,51 +218,50 @@ export default function Hero() {
         </div>
 
         {/* RIGHT IMAGE */}
-        <div
-          style={{
-            position: "relative",
-            width: "380px",
-            height: "600px",
-            display: "flex",
-            alignItems: "flex-end",
-            marginRight: "40px",
-          }}
-        >
-          <Image
-            src="/images/gambar1.png"
-            alt="Profile"
-            fill
-            style={{
-              objectFit: "contain",
-              objectPosition: "bottom",
-            }}
-          />
-
-          {/* GRADIENT RIGHT */}
+        {!isMobile && (
           <div
             style={{
-              position: "absolute",
-              top: 0,
-              right: -140,
-              width: "60%",
-              height: "100%",
-              background:
-                "linear-gradient(to left, #004B39 0%, transparent 100%)",
+              position: "relative",
+              width: "380px",
+              height: "600px",
+              display: "flex",
+              alignItems: "flex-end",
             }}
-          />
+          >
+            <Image
+              src="/images/gambar1.png"
+              alt="Profile"
+              fill
+              style={{
+                objectFit: "contain",
+                objectPosition: "bottom",
+              }}
+            />
 
-          {/* GRADIENT BOTTOM */}
-          <div
-            style={{
-              position: "absolute",
-              bottom: -20,
-              width: "100%",
-              height: "200px",
-              background:
-                "linear-gradient(to top, #004B39 0%, transparent 100%)",
-            }}
-          />
-        </div>
+            <div
+              style={{
+                position: "absolute",
+                top: 0,
+                right: -140,
+                width: "60%",
+                height: "100%",
+                background:
+                  "linear-gradient(to left, #004B39 0%, transparent 100%)",
+              }}
+            />
+
+            <div
+              style={{
+                position: "absolute",
+                bottom: -20,
+                width: "100%",
+                height: "200px",
+                background:
+                  "linear-gradient(to top, #004B39 0%, transparent 100%)",
+              }}
+            />
+          </div>
+        )}
       </div>
     </section>
   );
